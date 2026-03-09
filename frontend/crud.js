@@ -1,11 +1,5 @@
 // crud.js
 
-// Show/hide pages
-function showPage(pageId) {
-  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-  document.getElementById(pageId).classList.add('active');
-}
-
 // Load projects
 async function loadProjects() {
   const res = await fetch('/projects');
@@ -18,12 +12,13 @@ async function loadProjects() {
       <td>${p.project_id}</td>
       <td>${p.municipality_name}</td>
       <td>${p.project_name}</td>
-      <td>${p.project_cost}</td>
+      <td>$${Number(p.project_cost).toLocaleString()}</td>
       <td>${p.duration_start}</td>
       <td>${p.duration_end}</td>
       <td>${p.progress}</td>
       <td>
-        <button onclick="deleteProject(${p.project_id})">Delete</button>
+        <button class="edit-btn" onclick="editProject(${p.project_id})">Edit</button>
+        <button class="delete-btn" onclick="deleteProject(${p.project_id})">Delete</button>
       </td>
     `;
     tbody.appendChild(row);
@@ -47,10 +42,17 @@ function initProjectForm() {
   });
 }
 
+// Edit project (placeholder)
+async function editProject(id) {
+  alert('Edit functionality for project ID: ' + id);
+}
+
 // Delete project
 async function deleteProject(id) {
-  await fetch(`/projects/${id}`, { method: 'DELETE' });
-  loadProjects();
+  if(confirm('Are you sure you want to delete this project?')) {
+    await fetch(`/projects/${id}`, { method: 'DELETE' });
+    loadProjects();
+  }
 }
 
 // Initialize CRUD when projects page is shown
