@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analytics - Regional Development Dashboard</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="icon" href="assets/likeemoji.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <!-- Navigation Menu -->
+    <nav class="navbar">
+        <div class="nav-brand">
+            <i class="fas fa-chart-line"></i>
+            <span>Regional Development Dashboard</span>
+        </div>
+        <ul class="nav-menu">
+            <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+            <li><a href="analytics.html" class="active"><i class="fas fa-chart-bar"></i> Analytics</a></li>
+            <li><a href="map.html"><i class="fas fa-map"></i> Map View</a></li>
+        </ul>
+        <div class="nav-right">
+            <button id="themeToggle" class="theme-btn">
+                <i class="fas fa-moon"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="container">
+        <!-- Filters Section -->
+        <div class="filters-section">
+            <div class="filter-group">
+                <label for="regionSelect">Select Region:</label>
+                <select id="regionSelect" class="filter-select">
+                    <option value="all">All Regions</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <label for="dateRange">Time Period:</label>
+                <select id="dateRange" class="filter-select">
+                    <option value="lastMonth">Last Month</option>
+                    <option value="lastQuarter">Last Quarter</option>
+                    <option value="lastYear">Last Year</option>
+                </select>
+            </div>
+            <button class="export-btn" onclick="exportAnalytics()">
+                <i class="fas fa-download"></i> Export Report
+            </button>
+        </div>
+
+        <!-- KPI Cards -->
+        <div class="kpi-grid">
+            <div class="kpi-card">
+                <i class="fas fa-users kpi-icon"></i>
+                <div class="kpi-content">
+                    <h3>Total Population</h3>
+                    <div class="kpi-value" id="totalPopulation">109,035,343</div>
+                    <span class="kpi-change positive">
+                        <i class="fas fa-arrow-up"></i> 1.2%
+                    </span>
+                </div>
+            </div>
+            <div class="kpi-card">
+                <i class="fas fa-chart-line kpi-icon"></i>
+                <div class="kpi-content">
+                    <h3>GDP Growth</h3>
+                    <div class="kpi-value" id="gdpGrowth">6.4%</div>
+                    <span class="kpi-change positive">
+                        <i class="fas fa-arrow-up"></i> 0.8%
+                    </span>
+                </div>
+            </div>
+            <div class="kpi-card">
+                <i class="fas fa-briefcase kpi-icon"></i>
+                <div class="kpi-content">
+                    <h3>Employment Rate</h3>
+                    <div class="kpi-value" id="employmentRate">94.2%</div>
+                    <span class="kpi-change positive">
+                        <i class="fas fa-arrow-up"></i> 0.3%
+                    </span>
+                </div>
+            </div>
+            <div class="kpi-card">
+                <i class="fas fa-road kpi-icon"></i>
+                <div class="kpi-content">
+                    <h3>Infrastructure Investment</h3>
+                    <div class="kpi-value" id="infrastructureInvestment">₱245.6B</div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 75%"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Charts Grid -->
+        <div class="charts-grid">
+            <!-- GDP Trend Chart -->
+            <div class="chart-card">
+                <h3>GDP Growth Trend</h3>
+                <canvas id="gdpChart"></canvas>
+            </div>
+
+            <!-- Regional Comparison Chart -->
+            <div class="chart-card">
+                <h3>Regional Comparison</h3>
+                <canvas id="comparisonChart"></canvas>
+            </div>
+
+            <!-- Budget Allocation Chart -->
+            <div class="chart-card">
+                <h3>Budget Allocation by Sector</h3>
+                <canvas id="budgetChart"></canvas>
+            </div>
+
+            <!-- Performance Distribution -->
+            <div class="chart-card">
+                <h3>Regional Performance Distribution</h3>
+                <canvas id="distributionChart"></canvas>
+            </div>
+        </div>
+
+        <!-- Data Table -->
+        <div class="table-section">
+            <div class="table-header">
+                <h3>Regional Development Metrics</h3>
+                <div class="table-search">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="tableSearch" placeholder="Search region...">
+                </div>
+            </div>
+            <div class="table-container">
+                <table id="metricsTable">
+                    <thead>
+                        <tr>
+                            <th onclick="sortTable(0)">Region <i class="fas fa-sort"></i></th>
+                            <th onclick="sortTable(1)">Population <i class="fas fa-sort"></i></th>
+                            <th onclick="sortTable(2)">GDP Growth <i class="fas fa-sort"></i></th>
+                            <th onclick="sortTable(3)">Employment Rate <i class="fas fa-sort"></i></th>
+                            <th onclick="sortTable(4)">Education Index <i class="fas fa-sort"></i></th>
+                            <th onclick="sortTable(5)">Healthcare Index <i class="fas fa-sort"></i></th>
+                        </tr>
+                    </thead>
+                    <tbody id="tableBody">
+                        <!-- Dynamic content will be inserted here -->
+                    </tbody>
+                </table>
+            </div>
+            <div class="table-pagination">
+                <button onclick="prevPage()"><i class="fas fa-chevron-left"></i></button>
+                <span id="pageInfo">Page 1 of 3</span>
+                <button onclick="nextPage()"><i class="fas fa-chevron-right"></i></button>
+            </div>
+        </div>
+    </main>
+
+    <script src="data/mock-data.js"></script>
+    <script src="js/analytics.js"></script>
+</body>
+</html>

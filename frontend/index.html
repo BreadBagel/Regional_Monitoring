@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Regional Development Dashboard</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="leaflet.css" />
+  <script src="leaflet.js"></script>
+  <style>
+    /* Ensure the map is visible */
+    #mapContainer {
+      width: 100%;
+      height: 600px; /* adjust as needed */
+    }
+    /* Optional: make pages hidden until active */
+    .page { display: none; }
+    .page.active { display: block; }
+  </style>
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="navbar">
+    <div class="logo">Regional Dashboard</div>
+    <ul class="nav-links">
+      <li><a href="#" onclick="showPage('landing')">Home</a></li>
+      <li><a href="#" onclick="showPage('analytics')">Analytics</a></li>
+      <li><a href="#" onclick="showPage('map')">Map</a></li>
+      <li><a href="#" onclick="showPage('projects')">Projects</a></li>
+    </ul>
+  </nav>
+
+  <!-- Pages -->
+  <main>
+    <!-- Landing Page -->
+    <section id="landing" class="page active">
+      <h1>Hello, User 👋</h1>
+      <p>Welcome to the Regional Development Dashboard.</p>
+    </section>
+
+    <!-- Analytics Page -->
+    <section id="analytics" class="page">
+      <h2>Analytics</h2>
+      <div class="analytics-container">
+        <div class="card">📊 Regional Growth Metrics</div>
+        <div class="card">📈 Infrastructure Progress</div>
+        <div class="card">🌍 Sustainability Indicators</div>
+      </div>
+    </section>
+
+    <!-- Map Page -->
+    <section id="map" class="page">
+      <div id="mapContainer"></div>
+    </section>
+
+    <!-- Projects Page -->
+    <section id="projects" class="page">
+      <h2>Projects Management</h2>
+      <form id="projectForm">
+        <input type="text" name="municipality_id" placeholder="Municipality ID" required />
+        <input type="text" name="municipality_name" placeholder="Municipality Name" required />
+        <input type="text" name="project_name" placeholder="Project Name" required />
+        <input type="number" step="0.01" name="project_cost" placeholder="Cost" required />
+        <input type="date" name="duration_start" required />
+        <input type="date" name="duration_end" required />
+        <input type="text" name="progress" placeholder="Progress" required />
+        <button type="submit">Add Project</button>
+      </form>
+
+      <h3>Existing Projects</h3>
+      <table id="projectsTable">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Municipality</th>
+            <th>Name</th>
+            <th>Cost</th>
+            <th>Start</th>
+            <th>End</th>
+            <th>Progress</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </section>
+  </main>
+
+  <!-- Scripts -->
+  <script src="app.js"></script>
+  <script src="crud.js"></script>
+</body>
+</html>

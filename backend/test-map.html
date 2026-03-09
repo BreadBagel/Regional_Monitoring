@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Boundary Test</title>
+  <meta charset="utf-8" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <style>
+    #map { height: 100vh; }
+  </style>
+</head>
+<body>
+  <div id="map"></div>
+  <script>
+    // Initialize map (center roughly on Luzon)
+    const map = L.map('map').setView([16.0, 121.0], 6);
+
+    // Add basemap
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 18,
+      attribution: '© OpenStreetMap contributors'
+    }).addTo(map);
+
+    // Load one region file (example: Region I – Ilocos)
+    fetch("backend/regions/medres/Region-I-Ilocos.json")
+      .then(res => res.json())
+      .then(data => {
+        L.geoJSON(data, {
+          style: {
+            color: "#333",
+            weight: 2,
+            fillColor: "#3498db",
+            fillOpacity: 0.3
+          },
+          onEachFeature: (feature, layer) => {
+            layer.bindPopup(`<b>${feature.properties.adm2_en}</b>`);
+          }
+        }).addTo(map);
+      });
+  </script>
+</body>
+</html>

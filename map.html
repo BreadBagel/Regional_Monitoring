@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Map View - Regional Development Dashboard</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link rel="icon" href="assets/likeemoji.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <style>
+        #map { 
+            height: calc(100vh - 70px); 
+            width: 100%;
+            margin-top: 70px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Menu -->
+    <nav class="navbar">
+        <div class="nav-brand">
+            <i class="fas fa-chart-line"></i>
+            <span>Regional Development Dashboard</span>
+        </div>
+        <ul class="nav-menu">
+            <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+            <li><a href="analytics.html"><i class="fas fa-chart-bar"></i> Analytics</a></li>
+            <li><a href="map.html" class="active"><i class="fas fa-map"></i> Map View</a></li>
+        </ul>
+        <div class="nav-right">
+            <button id="themeToggle" class="theme-btn">
+                <i class="fas fa-moon"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Map Container -->
+    <div id="map"></div>
+
+    <!-- Map Legend -->
+    <div class="map-legend">
+        <h4>Legend</h4>
+        <div class="legend-item">
+            <span class="legend-color region-color"></span>
+            <span>Regions</span>
+        </div>
+        <div class="legend-item">
+            <span class="legend-color municipality-color"></span>
+            <span>Municipalities</span>
+        </div>
+    </div>
+
+    <!-- Region Info Panel -->
+    <div id="regionInfo" class="region-info-panel hidden">
+        <button class="close-btn" onclick="closeInfoPanel()"><i class="fas fa-times"></i></button>
+        <h4 id="selectedRegion">Region Information</h4>
+        <div id="regionDetails"></div>
+    </div>
+
+    <script src="data/mock-data.js"></script>
+    <script src="js/map-integration.js"></script>
+</body>
+</html>
